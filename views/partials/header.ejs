@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' \u2014 Northfield Supply Co.' : 'Northfield Supply Co.' %></title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a href="/" class="brand">
+        <span class="brand-mark">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M3 18L9 6L13 14L16 8L21 18" stroke="#EEF0E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>
+          <span class="brand-name">Northfield Supply Co.</span>
+          <span class="brand-sub">Backcountry gear, built to be used</span>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="/">Shop</a>
+        <form class="search-form" action="/search" method="get">
+          <input type="text" name="q" placeholder="Search gear&hellip;" value="<%= typeof q !== 'undefined' && q ? q : '' %>">
+          <button type="submit">Search</button>
+        </form>
+        <% if (typeof currentUser !== 'undefined' && currentUser) { %>
+          <a href="/account">My account</a>
+          <form action="/logout" method="post" style="display:inline"><button type="submit" style="background:none;border:none;color:inherit;font:inherit;cursor:pointer;padding:0">Log out</button></form>
+        <% } else { %>
+          <a href="/login">Log in</a>
+        <% } %>
+        <a href="/cart" class="nav-cart">Cart<% if (typeof cart !== 'undefined' && cart.length) { %> &middot; <%= cart.reduce((s,i)=>s+i.qty,0) %><% } %></a>
+      </nav>
+    </div>
+  </header>

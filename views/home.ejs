@@ -1,0 +1,51 @@
+<% const pageTitle = q ? `Results for "${q}"` : 'Shop'; %>
+<%- include('partials/header', { pageTitle, q }) %>
+
+<% if (!q) { %>
+<section class="hero">
+  <svg class="contour-bg" viewBox="0 0 1080 420" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#C9CFBD" stroke-width="1.4">
+      <path d="M-20,380 C 180,300 260,340 380,280 C 500,220 560,260 680,200 C 800,140 880,180 1100,110" />
+      <path d="M-20,420 C 160,350 260,390 390,330 C 510,270 580,310 700,250 C 820,190 900,230 1100,160" />
+      <path d="M-20,320 C 200,250 280,290 400,230 C 520,170 580,210 700,150 C 820,90 880,130 1100,70" />
+    </g>
+  </svg>
+  <div class="wrap">
+    <h1 class="display">Gear that earns its weight on the trail.</h1>
+    <p class="lede">Northfield Supply Co. is a demo storefront &mdash; backpacks, shelters, and cook kit designed for multi-day trips, built here as a realistic target for pentesting tools. No real orders, no real payments.</p>
+    <div class="hero-meta">
+      <div><strong><%= products.length >= 8 ? '8' : products.length %></strong>demo products</div>
+      <div><strong>Free</strong>fictional shipping</div>
+      <div><strong>7</strong>built-in vulnerabilities</div>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<div class="wrap">
+  <div class="section-head">
+    <h2><%= q ? `Results for \u201c${q}\u201d` : 'Full catalog' %></h2>
+    <span><%= products.length %> item<%= products.length === 1 ? '' : 's' %></span>
+  </div>
+
+  <% if (typeof sqlError !== 'undefined' && sqlError) { %>
+    <div class="sql-error"><strong>Search failed.</strong><br><%= sqlError %></div>
+  <% } %>
+
+  <% if (products.length === 0) { %>
+    <div class="empty-state">No products matched your search.</div>
+  <% } else { %>
+  <div class="product-grid">
+    <% products.forEach(function(product) { %>
+      <a class="product-card" href="/product/<%= product.id %>">
+        <%- include('partials/product-thumb', { product }) %>
+        <h3><%= product.name %></h3>
+        <div class="tagline"><%= product.tagline %></div>
+        <div class="price"><%= formatPrice(product.price_cents) %></div>
+      </a>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

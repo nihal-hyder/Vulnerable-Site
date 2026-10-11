@@ -1,0 +1,10 @@
+<%- include('partials/header', { pageTitle: 'Access denied' }) %>
+<div class="wrap">
+  <div class="error-page">
+    <div class="code">403</div>
+    <h1 class="display" style="margin-top:10px;">Access denied</h1>
+    <p style="color:var(--ink-soft);margin-top:10px;"><%= reason %></p>
+    <a href="/" class="btn" style="margin-top:20px;display:inline-block;">Back to shop</a>
+  </div>
+</div>
+<%- include('partials/footer') %>

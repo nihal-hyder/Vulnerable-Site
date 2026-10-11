@@ -1,0 +1,70 @@
+<%- include('partials/header', { pageTitle: product.name }) %>
+
+<div class="wrap">
+  <div class="product-detail">
+    <%- include('partials/product-thumb', { product }) %>
+    <div class="product-info">
+      <div class="category"><%= product.category %></div>
+      <h1><%= product.name %></h1>
+      <div class="tagline"><%= product.tagline %></div>
+      <div class="price"><%= formatPrice(product.price_cents) %></div>
+      <p class="desc"><%= product.description %></p>
+
+      <% if (message) { %><div class="alert success" style="margin-top:22px"><%= message %></div><% } %>
+
+      <form class="add-cart-row" action="/cart/add" method="post">
+        <input type="hidden" name="productId" value="<%= product.id %>">
+        <button type="submit" class="btn">Add to cart</button>
+        <a href="/cart" class="btn secondary">View cart</a>
+      </form>
+    </div>
+  </div>
+
+  <div class="reviews">
+    <h2>Reviews <% if (reviews.length) { %>(<%= reviews.length %>)<% } %></h2>
+
+    <% if (!reviews.length) { %>
+      <p style="color:var(--ink-soft)">No reviews yet &mdash; be the first.</p>
+    <% } %>
+
+    <% reviews.forEach(function(r) { %>
+      <div class="review">
+        <div class="meta">
+          <strong><%= r.author %></strong>
+          <span class="stars"><%= '\u2605'.repeat(r.rating) + '\u2606'.repeat(5 - r.rating) %></span>
+        </div>
+        <%# When stored_xss is ON, review bodies are rendered unescaped (raw HTML/script executes).
+            When OFF, they are HTML-escaped server-side before this template ever sees them. %>
+        <% if (xssOn) { %>
+          <div><%- r.body %></div>
+        <% } else { %>
+          <div><%- escapeHtml(r.body) %></div>
+        <% } %>
+      </div>
+    <% }) %>
+
+    <form class="review-form" action="/product/<%= product.id %>/review" method="post">
+      <div>
+        <label>Your name</label>
+        <input type="text" name="author" placeholder="Trail name or handle">
+      </div>
+      <div>
+        <label>Review</label>
+        <textarea name="body" rows="4" placeholder="How did it perform out there?"></textarea>
+      </div>
+      <div>
+        <label>Rating</label>
+        <select name="rating" style="padding:10px;border:1px solid var(--line);border-radius:3px;">
+          <option value="5">5 &mdash; Excellent</option>
+          <option value="4">4 &mdash; Good</option>
+          <option value="3">3 &mdash; Average</option>
+          <option value="2">2 &mdash; Below average</option>
+          <option value="1">1 &mdash; Poor</option>
+        </select>
+      </div>
+      <button type="submit" class="btn" style="justify-self:start">Post review</button>
+    </form>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

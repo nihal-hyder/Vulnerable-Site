@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pentest admin &mdash; Northfield Supply Co.</title>
+  <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <div class="login-shell">
+      <div class="title">Pentest control panel</div>
+      <div class="sub">Open or close individual vulnerabilities in the storefront.</div>
+
+      <% if (error) { %><div class="login-error"><%= error %></div><% } %>
+
+      <form action="/admin/login" method="post">
+        <input type="text" name="username" placeholder="Username" autocomplete="username" required>
+        <input type="password" name="password" placeholder="Password" autocomplete="current-password" required>
+        <button type="submit">Log in</button>
+      </form>
+      <p class="ftp-note">Default: admin / admin123 &mdash; set ADMIN_PANEL_USER / ADMIN_PANEL_PASSWORD env vars to change.</p>
+    </div>
+  </div>
+</body>
+</html>

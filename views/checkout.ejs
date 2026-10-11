@@ -1,0 +1,12 @@
+<%- include('partials/header', { pageTitle: 'Order placed' }) %>
+
+<div class="wrap">
+  <div class="narrow-page" style="text-align:center;">
+    <div style="font-size:2.4rem;">&#10003;</div>
+    <h1 class="display" style="margin-top:10px;">Order placed</h1>
+    <p class="sub">Thanks for the (fictional) order &mdash; <%= formatPrice(total) %> total. You can see it under My account &rarr; Orders.</p>
+    <a href="/account" class="btn">Go to my account</a>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

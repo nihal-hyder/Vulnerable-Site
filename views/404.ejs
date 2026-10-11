@@ -1,0 +1,10 @@
+<%- include('partials/header', { pageTitle: 'Not found' }) %>
+<div class="wrap">
+  <div class="error-page">
+    <div class="code">404</div>
+    <h1 class="display" style="margin-top:10px;">Page not found</h1>
+    <p style="color:var(--ink-soft);margin-top:10px;">Nothing lives at <code><%= path %></code>.</p>
+    <a href="/" class="btn" style="margin-top:20px;display:inline-block;">Back to shop</a>
+  </div>
+</div>
+<%- include('partials/footer') %>

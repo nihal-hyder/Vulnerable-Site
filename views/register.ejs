@@ -1,0 +1,30 @@
+<%- include('partials/header', { pageTitle: 'Create account' }) %>
+
+<div class="wrap">
+  <div class="narrow-page">
+    <h1 class="display">Create an account</h1>
+    <div class="sub">Takes about ten seconds. This is a demo &mdash; use any details.</div>
+
+    <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+
+    <form class="form-stack" action="/register" method="post">
+      <div class="form-field">
+        <label>Username</label>
+        <input type="text" name="username" required>
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" name="email">
+      </div>
+      <div class="form-field">
+        <label>Password</label>
+        <input type="password" name="password" required>
+      </div>
+      <button type="submit" class="btn">Create account</button>
+    </form>
+
+    <div class="form-footer-link">Already have an account? <a href="/login">Log in</a></div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

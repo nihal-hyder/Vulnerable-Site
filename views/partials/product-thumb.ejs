@@ -1,0 +1,19 @@
+<%
+  const icons = {
+    'Packs': '<path d="M35 45 v-14 a15 15 0 0 1 30 0 v14" /><rect x="28" y="45" width="44" height="40" rx="6" /><path d="M38 58 h24" /><path d="M38 68 h24" />',
+    'Sleep': '<path d="M25 70 q0 -28 25 -28 q25 0 25 28 z" /><path d="M25 70 h50" /><circle cx="38" cy="50" r="4" />',
+    'Cook': '<circle cx="50" cy="55" r="20" /><path d="M50 35 v-10" /><path d="M42 25 q0 -8 8 -10 q8 2 8 10" />',
+    'Shelter': '<path d="M20 72 L50 28 L80 72 Z" /><path d="M50 28 v44" /><path d="M35 72 L50 50 L65 72" />',
+    'Hike': '<path d="M35 20 v55" /><path d="M65 20 v55" /><path d="M35 40 l-7 7" /><path d="M65 40 l7 7" /><circle cx="35" cy="14" r="5"/><circle cx="65" cy="14" r="5"/>',
+    'Water': '<path d="M50 20 C 35 45, 30 55, 30 65 a20 20 0 0 0 40 0 C 70 55, 65 45, 50 20 Z" />',
+    'Apparel': '<path d="M35 25 l-15 12 l8 10 l7 -5 v38 h30 v-38 l7 5 l8 -10 l-15 -12 a10 10 0 0 1 -20 0 Z" />',
+    'Gear': '<circle cx="50" cy="42" r="14" /><path d="M50 56 v18" /><path d="M42 68 h16" />'
+  };
+  const icon = icons[product.category] || icons['Gear'];
+%>
+<div class="thumb hue-<%= product.hue %>">
+  <% if (product.badge) { %><span class="badge-pill"><%= product.badge %></span><% } %>
+  <svg viewBox="0 0 100 100" fill="none" stroke="rgba(238,240,230,0.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <%- icon %>
+  </svg>
+</div>

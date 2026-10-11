@@ -1,0 +1,27 @@
+<%- include('partials/header', { pageTitle: 'Order #' + order.id }) %>
+
+<div class="wrap">
+  <div class="order-detail-box">
+    <div class="section-head" style="margin-top:0;">
+      <h2>Order #<%= order.id %></h2>
+      <span><%= order.status %></span>
+    </div>
+    <p style="color:var(--ink-soft);font-size:0.9rem;margin-top:-10px;">Placed <%= order.created_at %> by account <strong><%= owner ? owner.username : 'unknown' %></strong></p>
+
+    <% items.forEach(function(item) { %>
+      <div class="line-item">
+        <span><%= item.name %> &times; <%= item.qty %></span>
+        <span><%= formatPrice(item.price_cents * item.qty) %></span>
+      </div>
+    <% }) %>
+
+    <div class="cart-total-row">
+      <span>Total</span>
+      <strong><%= formatPrice(order.total_cents) %></strong>
+    </div>
+  </div>
+
+  <a href="/account" class="btn secondary">&larr; Back to account</a>
+</div>
+
+<%- include('partials/footer') %>

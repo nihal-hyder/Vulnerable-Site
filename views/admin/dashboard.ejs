@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pentest admin &mdash; Northfield Supply Co.</title>
+  <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <div class="admin-topbar">
+      <div class="title">
+        Pentest control panel
+        <small>Northfield Supply Co. &mdash; deliberately vulnerable demo target</small>
+      </div>
+      <div>
+        <a class="back" href="/" style="margin-right:18px;">View storefront &rarr;</a>
+        <form action="/admin/logout" method="post" style="display:inline;">
+          <button type="submit" style="background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:0.85rem;">Log out</button>
+        </form>
+      </div>
+    </div>
+
+    <% if (message) { %><div class="flash-msg"><%= message %></div><% } %>
+
+    <% const openCount = vulns.filter(v => v.on).length; %>
+    <div class="status-strip">
+      <div class="status-chip open">
+        <div class="num"><%= openCount %></div>
+        <div class="label">vulnerabilities open</div>
+      </div>
+      <div class="status-chip closed">
+        <div class="num"><%= vulns.length - openCount %></div>
+        <div class="label">vulnerabilities closed</div>
+      </div>
+      <div class="status-chip <%= ftpOn ? 'open' : 'closed' %>">
+        <div class="num"><%= ftpOn ? 'OPEN' : 'CLOSED' %></div>
+        <div class="label">FTP service &middot; port <%= ftpPort %></div>
+      </div>
+    </div>
+
+    <div class="bulk-actions">
+      <form action="/admin/set-all" method="post">
+        <input type="hidden" name="on" value="true">
+        <button type="submit" class="btn-admin danger">Open all vulnerabilities</button>
+      </form>
+      <form action="/admin/set-all" method="post">
+        <input type="hidden" name="on" value="false">
+        <button type="submit" class="btn-admin safe">Close all vulnerabilities</button>
+      </form>
+    </div>
+
+    <div class="vuln-list">
+      <% vulns.forEach(function(v) { %>
+        <div class="vuln-card <%= v.on ? 'is-open' : 'is-closed' %>">
+          <div class="vuln-head">
+            <div>
+              <div class="vuln-name"><%= v.name %></div>
+              <div class="vuln-tags">
+                <span class="tag"><%= v.category %></span>
+                <span class="tag severity-<%= v.severity %>"><%= v.severity %></span>
+                <span class="tag"><%= v.cwe %></span>
+              </div>
+              <div class="vuln-desc"><%= v.description %></div>
+              <div class="vuln-meta-row">
+                <span><b>Location:</b> <%= v.location %></span>
+                <span><b>Try:</b> <%= v.vulnerableHint %></span>
+                <span><b>When closed:</b> <%= v.fixedBehavior %></span>
+              </div>
+            </div>
+            <form action="/admin/toggle" method="post">
+              <input type="hidden" name="key" value="<%= v.key %>">
+              <input type="hidden" name="on" value="<%= v.on ? 'false' : 'true' %>">
+              <label class="toggle-switch">
+                <input type="checkbox" <%= v.on ? 'checked' : '' %> onchange="this.form.submit()">
+                <span class="toggle-track"></span>
+                <span class="toggle-thumb"></span>
+              </label>
+              <div class="toggle-label"><%= v.on ? 'OPEN' : 'CLOSED' %></div>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "northfield-vulnshop",
+  "version": "1.0.0",
+  "description": "A deliberately vulnerable demo e-commerce site for testing AI/automated pentesting tools against. Ships with an admin panel to toggle 7 vulnerabilities on/off individually.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "security",
+    "vulnerable-app",
+    "pentest",
+    "owasp",
+    "demo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "ejs": "^7.0.1",
+    "express": "^5.3.0",
+    "express-session": "^1.19.0",
+    "ftp-srv": "^4.6.3",
+    "multer": "^2.4.0",
+    "sql.js": "^1.14.2"
+  }
+}

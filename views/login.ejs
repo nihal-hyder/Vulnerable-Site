@@ -1,0 +1,33 @@
+<%- include('partials/header', { pageTitle: 'Log in' }) %>
+
+<div class="wrap">
+  <div class="narrow-page">
+    <h1 class="display">Welcome back</h1>
+    <div class="sub">Log in to see your orders and account details.</div>
+
+    <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+
+    <form class="form-stack" action="/login" method="post">
+      <input type="hidden" name="next" value="<%= next %>">
+      <div class="form-field">
+        <label>Username</label>
+        <input type="text" name="username" autocomplete="username" required>
+      </div>
+      <div class="form-field">
+        <label>Password</label>
+        <input type="password" name="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn">Log in</button>
+    </form>
+
+    <div class="form-footer-link">New here? <a href="/register">Create an account</a></div>
+
+    <div class="demo-creds">
+      <strong>Demo accounts</strong><br>
+      <code>demo</code> / <code>trailblazer</code><br>
+      <code>junebug</code> / <code>pinecone88</code>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

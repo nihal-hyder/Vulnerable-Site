@@ -1,0 +1,34 @@
+<%- include('partials/header', { pageTitle: 'Your cart' }) %>
+
+<div class="wrap cart-page">
+  <h1 class="display" style="margin-bottom:30px;">Your cart</h1>
+
+  <% if (!cart.length) { %>
+    <div class="empty-state">Your cart is empty. <a href="/">Keep browsing</a>.</div>
+  <% } else { %>
+    <% cart.forEach(function(item) { %>
+      <div class="cart-row">
+        <div>
+          <strong><%= item.name %></strong>
+        </div>
+        <div>Qty <%= item.qty %></div>
+        <div><%= formatPrice(item.price_cents * item.qty) %></div>
+        <form action="/cart/remove" method="post">
+          <input type="hidden" name="productId" value="<%= item.productId %>">
+          <button type="submit" class="btn secondary small">Remove</button>
+        </form>
+      </div>
+    <% }) %>
+
+    <div class="cart-total-row">
+      <span>Total</span>
+      <strong><%= formatPrice(total) %></strong>
+    </div>
+
+    <form action="/checkout" method="post" style="margin-top:26px; text-align:right;">
+      <button type="submit" class="btn">Checkout</button>
+    </form>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

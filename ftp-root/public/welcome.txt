@@ -1,0 +1,2 @@
+Northfield Supply Co. file drop
+This anonymous FTP service is a deliberately exposed demo fixture.
